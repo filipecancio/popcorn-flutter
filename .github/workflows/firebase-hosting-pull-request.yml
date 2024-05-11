@@ -8,6 +8,14 @@ permissions:
   contents: read
   pull-requests: write
 jobs:
+  buld_app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+      - run: flutter pub get
+      - run: flutter build web
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
