@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class PopApi {
+  String get apiKey => dotenv.env['API_KEY'] ?? '';
+
   Future<List<dynamic>> getTheMovieDB(String path)async{
-    String apiKey = "";
     Uri uri = Uri.parse('https://api.themoviedb.org/3/$path?api_key=$apiKey');
 
     final response = await http.get(uri);

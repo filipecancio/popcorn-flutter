@@ -2,11 +2,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:popcorn/model/movie.dart';
 import 'package:popcorn/repository/pop_repository.dart';
 
 
-void main() {
-  runApp(const MyApp());
+Future main() async {
+  await dotenv.load(fileName: ".env");
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -35,14 +38,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  Movie? movie;
   PopRepository repository = PopRepository();
 
   void _incrementCounter() {
     setState(() {
       _counter++;
       final temp = repository.getTrendingMovies().then((response) {
-
-        log("message: $response");
+        List<Movie> movieList = response.toList();
+        movie = movieList[_counter];
       });
 
     });
@@ -59,8 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              'You have pushed the button this many times ${movie?.title}:',
             ),
             Text(
               '$_counter',
