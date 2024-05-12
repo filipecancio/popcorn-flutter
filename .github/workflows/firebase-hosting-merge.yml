@@ -16,12 +16,12 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.0'
-      - run: flutter pub get
-      - run: flutter build web
       - run: |
           touch .dotenv
           echo API_KEY=${{ secrets.API_KEY }} >> .env
           cat .dotenv
+      - run: flutter pub get
+      - run: flutter build web
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
