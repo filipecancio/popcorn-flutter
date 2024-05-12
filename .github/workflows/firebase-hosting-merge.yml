@@ -22,6 +22,7 @@ jobs:
           cat .dotenv
       - run: flutter pub get
       - run: flutter build web
+      - run: cp .dotenv build/web
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
