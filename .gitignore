@@ -9,10 +9,14 @@
 .history
 .svn/
 migrate_working_dir/
-.env
+.dotenv
 *.env
-.env*
+.dotenv
 */.env
+.dotenv
+*.dotenv
+.dotenv*
+*/.dotenv
 # IntelliJ related
 *.iml
 *.ipr

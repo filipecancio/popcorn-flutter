@@ -8,7 +8,7 @@ import 'package:popcorn/repository/pop_repository.dart';
 
 
 Future main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: ".dotenv");
   runApp(MyApp());
 }
 
