@@ -21,8 +21,7 @@ jobs:
           echo API_KEY=${{ secrets.API_KEY }} >> .env
           cat .dotenv
       - run: flutter pub get
-      - run: flutter build web
-      - run: cp .dotenv build/web
+      - run: flutter build web --dart-define=envFileName=.dotenv
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
