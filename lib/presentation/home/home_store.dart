@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:mobx/mobx.dart';
 
 import '../../model/movie.dart';
@@ -16,10 +14,15 @@ abstract class _HomeStore with Store {
   ObservableList<Movie> movieList = ObservableList<Movie>();
 
   @observable
+  String movieTitle = '';
+
+  @observable
   MovieListType pageType = MovieListType.trending;
 
   @computed
-  String get movieTitle => movieList.isNotEmpty ? movieList.first.title : '';
+  String get pageTitle => pageType == MovieListType.none
+      ? "${pageType.title} $movieTitle"
+      : pageType.title;
 
   @action
   void getTrendingMovies() {
@@ -39,6 +42,8 @@ abstract class _HomeStore with Store {
 
   @action
   void getFindMovie(String movieName) {
+    pageType = MovieListType.none;
+    movieTitle = movieName;
     repository.getFindMovie(movieName).then((response) {
       movieList.clear();
       movieList.addAll(response.toList());
@@ -48,7 +53,7 @@ abstract class _HomeStore with Store {
   @action
   void updateMovieType(MovieListType type) {
     pageType = type;
-    if(type == MovieListType.trending) {
+    if (type == MovieListType.trending) {
       getTrendingMovies();
     } else {
       getPopularMovies();

@@ -46,20 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Observer(builder: (_) {
           return Column(
             children: [
-              Row(
-                children: [
-                  SearchInput(
-                    onChanged: (value) {
-                      store.getFindMovie(value);
-                    }
-                  ),
-
-                  ToggleButton(
-                      type: store.pageType,
-                      onCLick: store.updateMovieType
-                  )
-                ],
-              ),
+              Text(store.pageTitle),
               Expanded(
                   child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
