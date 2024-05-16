@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:popcorn/components/molecules/toggle_button.dart';
 import 'package:popcorn/model/movie_list_type.dart';
 import 'package:popcorn/presentation/home/home_store.dart';
 
 import '../../components/atom/ItemList.dart';
+import '../../components/molecules/search_input.dart';
 import '../../model/movie.dart';
 import '../../repository/pop_repository.dart';
 
@@ -37,24 +41,19 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Observer(builder: (_) {
           return Column(
             children: [
-              ToggleButtons(
-                onPressed: (int index) {
-                  if (index == 0) {
-                    store.updateMovieType(MovieListType.trending);
-                  } else if (index == 1) {
-                    store.updateMovieType(MovieListType.popular);
-                  }
-                },
-                isSelected: [store.pageType == MovieListType.trending, store.pageType == MovieListType.popular],
-                children: const <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Trending'),
+              Row(
+                children: [
+                  SearchInput(
+                    onChanged: (value) {
+                      log("value do input: $value");
+                      store.getFindMovie(value);
+                    }
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Popular'),
-                  ),
+
+                  ToggleButton(
+                      type: store.pageType,
+                      onCLick: store.updateMovieType
+                  )
                 ],
               ),
               Expanded(
