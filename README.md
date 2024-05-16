@@ -1,18 +1,17 @@
 # popcorn
 
-You can see the wev version on [popcorn.cancio.dev](https://popcorn.cancio.dev/)
+Voce pode ver a versao em deploy em [popcorn.cancio.dev](https://popcorn.cancio.dev/).
 
-A new Flutter project.
+## Executando o projeto
 
-## Getting Started
+Para executar o projeto voce precisa ter:
+- A versao mais recente do [flutter](https://flutter.dev/)
+- [Visual Studio Code](https://code.visualstudio.com/) ou [Android Studio](https://developer.android.com/studio?hl=pt-br)
+- Emulador ou dispositivo fisico
 
-This project is a starting point for a Flutter application.
+Assumindo que voce ja tem as ferramentas configuradas, basta apenas abrir o projeto no editor de sua preferencia, e executar os comandos abaixo:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+flutter run -d chrome
+```
