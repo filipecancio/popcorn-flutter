@@ -17,6 +17,8 @@ class Movie {
     required this.voteAverage,
   });
 
+  String get poster =>  "https://image.tmdb.org/t/p/w500/$posterPath";
+
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
       title: json["title"],

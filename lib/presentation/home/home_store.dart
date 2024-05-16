@@ -14,18 +14,36 @@ abstract class _HomeStore with Store {
 
   ObservableList<Movie> movieList = ObservableList<Movie>();
 
+  @observable
+  String pageTitle = '';
+
   @computed
-  String get movieTitle => movieList.isNotEmpty ? movieList.first.title : 'prai';
+  String get movieTitle => movieList.isNotEmpty ? movieList.first.title : '';
 
   @action
   void getTrendingMovies() {
-    log('movieList: $movieTitle');
     repository.getTrendingMovies().then((response) {
       movieList.clear();
       movieList.addAll(response.toList());
-      log('movieTitle: $movieTitle');
+      pageTitle = 'Trending Movies';
     });
   }
 
-  String movieListToString(List<Movie> list) => list.map((e) => e.toString()).toString();
+  @action
+  void getPopularMovies() {
+    repository.getPopularMovies().then((response) {
+      movieList.clear();
+      movieList.addAll(response.toList());
+      pageTitle = 'Popular Movies';
+    });
+  }
+
+  @action
+  void getFindMovie(String movieName) {
+    repository.getFindMovie(movieName).then((response) {
+      movieList.clear();
+      movieList.addAll(response.toList());
+      pageTitle = 'Finding Movies who has: $movieName';
+    });
+  }
 }

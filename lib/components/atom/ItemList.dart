@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 import '../../model/movie.dart';
+import 'image_rect.dart';
 
 class ItemList extends StatelessWidget {
   final Movie movie;
@@ -10,11 +10,12 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(movie.posterPath),
-        Text(movie.title),
-      ]
-    );
+    return Column(children: [
+      ImageRect(imageUrl: movie.poster),
+      Text(movie.title,
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+          )),
+    ]);
   }
 }
