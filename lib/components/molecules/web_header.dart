@@ -23,14 +23,35 @@ class WebHeader extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: Theme.of(context).colorScheme.inversePrimary,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFFFFAFBD),
+            Color(0xFFFFC3A0),
+          ],
+        ),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Text("Popcorn"),
-            SearchInput(onChanged: onChanged),
-            ToggleButton(type: type, onCLick: onCLick)
+            const Text(
+              "Popcorn",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat',
+                fontSize: 30.0,
+              ),
+            ),
+            Row(children: [
+              SearchInput(onChanged: onChanged),
+              const SizedBox(width: 16.0),
+              ToggleButton(type: type, onCLick: onCLick)
+            ])
           ],
         ),
       ),
