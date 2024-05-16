@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:popcorn/components/molecules/toggle_button.dart';
+import 'package:popcorn/components/molecules/web_header.dart';
 import 'package:popcorn/model/movie_list_type.dart';
 import 'package:popcorn/presentation/home/home_store.dart';
 
@@ -33,10 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Popcorn"),
+      appBar: WebHeader(
+        type: store.pageType,
+        onCLick: store.updateMovieType,
+        onChanged: (value) {
+          store.getFindMovie(value);
+        }
       ),
+      //appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.inversePrimary, title: const Text("Popcorn"),),
       body: Center(
         child: Observer(builder: (_) {
           return Column(
@@ -45,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   SearchInput(
                     onChanged: (value) {
-                      log("value do input: $value");
                       store.getFindMovie(value);
                     }
                   ),
