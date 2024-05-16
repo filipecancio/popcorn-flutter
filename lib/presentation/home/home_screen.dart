@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:popcorn/presentation/home/home_store.dart';
 
+import '../../components/atom/ItemList.dart';
 import '../../model/movie.dart';
 import '../../repository/pop_repository.dart';
 
@@ -17,15 +18,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final HomeStore store = HomeStore();
 
-  int _counter = 0;
   Movie? movie;
   PopRepository repository = PopRepository();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-
-    });
+  @override
+  void initState() {
+    store.getTrendingMovies();
+    super.initState();
   }
 
   @override
@@ -36,34 +35,19 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Popcorn"),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Observer(
-              builder: (_) {
-                return Text(
-                  'You have pushed the button this many times ${store.movieList.isNotEmpty ? store.movieList[_counter].title : ''}:',
-                );
+        child: Observer(
+          builder: (_) {
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // Define the number of columns
+              ),
+              itemCount: store.movieList.length,
+              itemBuilder: (context, index) {
+                return ItemList(movie: store.movieList[index]);
               },
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+            );
+          }
         ),
-      ),
-      floatingActionButton: Observer(
-        builder: (_) {
-          return FloatingActionButton(
-            onPressed: (){
-              store.getTrendingMovies();
-              _incrementCounter();
-            },
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          );
-        },
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

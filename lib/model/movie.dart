@@ -28,4 +28,9 @@ class Movie {
       voteAverage: json["vote_average"].toDouble(),
     );
   }
+
+  @override
+  String toString() {
+    return " title: $title, backDropPath: $backDropPath, originalTitle: $originalTitle, overview: $overview, posterPath: $posterPath, releaseDate: $releaseDate, voteAverage: $voteAverage ";
+  }
 }
